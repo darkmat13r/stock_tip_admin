@@ -1,332 +1,170 @@
 <template>
 
-        <div>
-          <div class="row">
-            <div class="col-xl-3 col-lg-4 col-xxl-4">
-              <div class="card balance-widget">
-                <div class="card-header border-0 py-0">
-                  <h4 class="card-title">Overview</h4>
-                </div>
-                <div class="card-body pt-0">
-                  <div class="balance-widget">
-                    <div class="total-balance">
-                      <h3>$63411.00</h3>
-                      <h6>Total Users</h6>
+    <div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-xxl-6">
+                <div class="card balance-widget">
+                    <div class="card-body" v-if="revenue" >
+                        <line-chart :chart-data="revenue" style="height: 264px"/>
                     </div>
-
-                  </div>
                 </div>
-              </div>
             </div>
 
-            <div class="col-xl-6 col-lg-8 col-xxl-8">
-              <div class="card profile_chart">
-                <div class="card-header py-0">
-                  <div class="chart_current_data">
-                    <h3>254856 <span>USD</span></h3>
-                    <p class="text-success">125648 <span>USD (20%)</span></p>
-                  </div>
-                  <div class="duration-option">
-                    <a id="all" class="active">ALL</a>
-                    <a id="one_month" class="">1M</a>
-                    <a id="six_months">6M</a>
-                    <a id="one_year" class="">1Y</a>
-                    <a id="ytd" class="">YTD</a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div id="timeline-chart"></div>
-                  <div class="chart-content text-center">
-                    <div class="row">
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">24hr Volume</p>
-                          <h5>$1236548.325</h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Market Cap</p>
-                          <h5>19B USD</h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Circulating Supply</p>
-                          <h5>29.4M BTC</h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">All Time High</p>
-                          <h5>19.783.06 USD</h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Typical hold time </p>
-                          <h5>88 days</h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Trading activity </p>
-                          <h5>70% buy </h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Popularity </p>
-                          <h5>#1 most held </h5>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-sm-6 col-6">
-                        <div class="chart-stat">
-                          <p class="mb-1">Popularity </p>
-                          <h5>#1 most held </h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-12 col-xxl-12">
-              <div class="card">
-                <div class="card-header border-0 py-0">
-                  <h4 class="card-title">Follow</h4>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-xl-12 col-lg-6 col-xxl-6">
-                      <div class="widget-card">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="widget-stat">
-                            <div class="coin-title">
-                              <span><i class="cc BTC"></i></span>
-                              <h5 class="d-inline-block ml-2 mb-3">Bitcoin <span>(24h)</span>
-                              </h5>
+            <div class="col-xl-6 col-lg-6 col-xxl-6 col-md-12">
+                <div class="card profile_chart">
+                    <div class="card-body">
+                        <div id="timeline-chart"></div>
+                        <div class="chart-content text-center" v-if="analytics">
+                            <div class="row">
+
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Daily Users</p>
+                                        <h5>{{analytics.daily_users}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Monthly Users</p>
+                                        <h5>{{analytics.monthly_users}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Total Users</p>
+                                        <h5>{{analytics.total_users}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Daily Revenue</p>
+                                        <h5>{{analytics.daily_revenue}} INR</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Monthly Revenue</p>
+                                        <h5>{{analytics.monthly_revenue}} INR</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="chart-stat">
+                                        <p class="mb-1">Total Revenue</p>
+                                        <h5>{{analytics.total_revenue}} INR</h5>
+                                    </div>
+                                </div>
                             </div>
-                            <h4>USD 1254.36 <span class="badge badge-success ml-2">+ 06%</span>
-                            </h4>
-                          </div>
-                          <div id="btcChart"></div>
                         </div>
-                      </div>
                     </div>
-                    <div class="col-xl-12 col-lg-6 col-xxl-6">
-                      <div class="widget-card">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="widget-stat">
-                            <div class="coin-title">
-                              <span><i class="cc ETH"></i></span>
-                              <h5 class="d-inline-block ml-2 mb-3">Ethereum <span>(24h)</span>
-                              </h5>
-                            </div>
-                            <h4>USD 1254.36 <span class="badge badge-danger ml-2">- 06%</span>
-                            </h4>
-                          </div>
-                          <div id="ltcChart"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-12 col-lg-6 col-xxl-6">
-                      <div class="widget-card">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="widget-stat">
-                            <div class="coin-title">
-                              <span><i class="cc LTC"></i></span>
-                              <h5 class="d-inline-block ml-2 mb-3">Litecoin <span>(24h)</span>
-                              </h5>
-                            </div>
-                            <h4>USD 1254.36 <span class="badge badge-primary ml-2"> 06%</span>
-                            </h4>
-                          </div>
-                          <div id="xrpChart"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-12 col-lg-6 col-xxl-6">
-                      <div class="widget-card">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="widget-stat">
-                            <div class="coin-title">
-                              <span><i class="cc XRP"></i></span>
-                              <h5 class="d-inline-block ml-2 mb-3">Ripple <span>(24h)</span>
-                              </h5>
-                            </div>
-                            <h4>USD 1254.36 <span class="badge badge-danger ml-2">- 06%</span>
-                            </h4>
-                          </div>
-                          <div id="dashChart"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-3 col-lg-4 col-xxl-4">
-              <div class="card">
-                <div class="card-header border-0 py-0">
-                  <h4 class="card-title">Exchange</h4>
-                </div>
-                <div class="card-body">
-                  <div class="buy-sell-widget">
-                    <form method="post" name="myform" class="currency_validate">
-                      <div class="form-group">
-                        <label class="mr-sm-2">Currency</label>
-                        <div class="input-group mb-3">
-                          <select name='currency' class="form-control">
-                            <option data-display="Bitcoin" value="bitcoin">Bitcoin</option>
-                            <option value="litecoin">Litecoin</option>
-                          </select>
-                          <input type="text" name="usd_amount" class="form-control"
-                                 value="125.00 USD">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="mr-sm-2">Payment Method</label>
-                        <div class="input-group mb-3">
-                          <select name='currency' class="form-control">
-                            <option data-display="Bitcoin" value="bitcoin">Bitcoin</option>
-                            <option value="litecoin">Litecoin</option>
-                          </select>
-                          <input type="text" name="usd_amount" class="form-control"
-                                 value="125.00 USD">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="mr-sm-2">Enter your amount</label>
-                        <div class="input-group">
-                          <input type="text" name="currency_amount" class="form-control"
-                                 placeholder="0.0214 BTC">
-                          <input type="text" name="usd_amount" class="form-control"
-                                 placeholder="125.00 USD">
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                          <p class="mb-0">Monthly Limit</p>
-                          <h6 class="mb-0">$49750 remaining</h6>
-                        </div>
-                      </div>
-                      <button type="submit" name="submit" class="btn btn-success btn-block">Exchange
-                        Now</button>
-
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-9 col-lg-8 col-xxl-8">
-              <div class="card">
-                <div class="card-header border-0 py-0">
-                  <h4 class="card-title">Recent Activities</h4>
-                  <a href="#">View More </a>
-                </div>
-                <div class="card-body">
-                  <div class="transaction-table">
-                    <div class="table-responsive">
-                      <table class="table mb-0 table-responsive-sm">
-                        <tbody>
-                        <tr>
-                          <td><span class="sold-thumb"><i class="la la-arrow-down"></i></span>
-                          </td>
-
-                          <td>
-                            <span class="badge badge-danger">Sold</span>
-                          </td>
-                          <td>
-                            <i class="cc BTC"></i> Bitcoin
-                          </td>
-                          <td>
-                            Using - Bank *******5264
-                          </td>
-                          <td class="text-danger">-0.000242 BTC</td>
-                          <td>-0.125 USD</td>
-                        </tr>
-                        <tr>
-                          <td><span class="buy-thumb"><i class="la la-arrow-up"></i></span>
-                          </td>
-                          <td>
-                            <span class="badge badge-success">Buy</span>
-                          </td>
-                          <td>
-                            <i class="cc LTC"></i> Litecoin
-                          </td>
-                          <td>
-                            Using - Card *******8475
-                          </td>
-                          <td class="text-success">-0.000242 BTC</td>
-                          <td>-0.125 USD</td>
-                        </tr>
-                        <tr>
-                          <td><span class="sold-thumb"><i class="la la-arrow-down"></i></span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Sold</span>
-                          </td>
-                          <td>
-                            <i class="cc XRP"></i> Ripple
-                          </td>
-                          <td>
-                            Using - Card *******8475
-                          </td>
-                          <td class="text-danger">-0.000242 BTC</td>
-                          <td>-0.125 USD</td>
-                        </tr>
-                        <tr>
-                          <td><span class="buy-thumb"><i class="la la-arrow-up"></i></span>
-                          </td>
-                          <td>
-                            <span class="badge badge-success">Buy</span>
-                          </td>
-                          <td>
-                            <i class="cc DASH"></i> Dash
-                          </td>
-                          <td>
-                            Using - Card *******2321
-                          </td>
-                          <td class="text-success">-0.000242 BTC</td>
-                          <td>-0.125 USD</td>
-                        </tr>
-                        <tr>
-                          <td><span class="sold-thumb"><i class="la la-arrow-down"></i></span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Sold</span>
-                          </td>
-                          <td>
-                            <i class="cc BTC"></i> Bitcoin
-                          </td>
-                          <td>
-                            Using - Card *******2321
-                          </td>
-                          <td class="text-danger">-0.000242 BTC</td>
-                          <td>-0.125 USD</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header border-0 py-0">
+                        <h4 class="card-title">Last 10 orders</h4>
+                        <a href="#" @click="gotToOrders">View More </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="transaction-table">
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-responsive-sm">
+                                    <tbody>
+                                    <tr v-for="order in orders">
+                                        <td>
+                                            {{order.id}}
+                                        </td>
+                                        <td> {{order.user.name}}
+                                        </td>
+                                        <td>
+                                            {{order.user.email}}
+                                        </td>
+                                        <td>
+                                            {{order.amount}}
+                                        </td>
+                                        <td> {{order.created_at|timeAgo}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <canvas id="gradient"></canvas>
+    </div>
 
 </template>
 
 <script>
-// @ is an alias to /src
+    // @ is an alias to /src
+    import dashboardService from '../services/dashboardService'
+    import orderService from '../services/orderService'
+    import LineChart from "../components/charts/LineChart";
 
-export default {
-  name: 'home',
-  components: {
+    export default {
+        name: 'home',
+        components: {LineChart},
+        data() {
+            return {
+                analytics: null,
+                orders: [],
+                revenue: null,
+            }
+        },
+        mounted() {
+            this.getAnalytics()
+            this.getLastOrders()
+            this.getRevenueReport()
+        },
+        methods: {
+            getAnalytics() {
+                dashboardService.getAnalytics().then(res => {
+                    this.analytics = res
+                });
+            },
+            getLastOrders() {
+                orderService.get(null, false, {
+                    status: 'completed',
+                    limit: 10
+                }).then(res => {
+                    console.log(res)
+                    this.orders = res
+                })
+            },
+            gotToOrders() {
+                this.$router.push('orders')
+            },
+            getRevenueReport() {
+                let ctx = document.getElementById('gradient').getContext("2d");
+                var gradientStroke = ctx.createLinearGradient(0, 0, 0, 400);
+                gradientStroke.addColorStop(0, "rgba(123, 111, 255,50)");
+                gradientStroke.addColorStop(1, "rgba(255, 255, 255,0)");
 
-  }
-}
+                dashboardService.getRevenueReport().then(res => {
+                    let labels = []
+                    let data = []
+                   res.forEach(item =>{
+                       labels.push(moment(item.date, 'MM-YYYY').format('MMMM'))
+                       data.push(item.amount)
+                   })
+
+                    this.revenue = {
+                        labels  : labels,
+                        datasets:[
+                            {
+                                label :'Revenue',
+                                data : data,
+                                borderColor : '#0d40c6',
+                                backgroundColor : gradientStroke,
+                            }
+                        ]
+                    }
+
+                })
+            }
+        }
+    }
 </script>

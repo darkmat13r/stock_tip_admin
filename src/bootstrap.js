@@ -2,6 +2,11 @@ window._ = require('lodash');
 
 require('bootstrap');
 require('./config')
+require('chart.js')
+require('vue-chartjs')
+import config from './config'
+import auth from './services/auth'
+import GlobalDirectives from './globalDirectives'
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -12,24 +17,26 @@ window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 window.axios = require('axios');
 
-window.toastr = require('toastr');
+window.toastr = require('./assets/vendor/toastr/toastr.min');
+import ('./assets/vendor/toastr/toastr.min.css')
 window.moment = require('moment');
 toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300000",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
+    closeButton: !0,
+    debug: !1,
+    newestOnTop: !0,
+    progressBar: !0,
+    positionClass: "toast-top-right demo_rtl_class",
+    preventDuplicates: !0,
+    onclick: null,
+    showDuration: "300",
+    hideDuration: "1000",
+    extendedTimeOut: "1000",
+    showEasing: "swing",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut",
+    tapToDismiss: !1,
+    closeHtml: '<div class="circle_progress"></div><span class="progress_count"></span> <i class="la la-close"></i> '
 }
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -40,32 +47,33 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-/*import Echo from "laravel-echo"
+import Echo from "laravel-echo"
 window.io = require('socket.io-client');
 // Have this in case you stop running your laravel echo server
 if (typeof io !== 'undefined') {
     window.Echo = new Echo({
         broadcaster: 'socket.io',
-        host: window.location.hostname + ':6001',
+        host: config.HOST + ':6004',
         forceTLS: false,
         auth: {
             headers: {
-                authorization: 'Bearer '+auth.getToken()
+                authorization: auth.getToken()
             }
         }
     });
-}*/
+}
 
-import './assets/css/style.css'
 import './assets/css/chat.css'
 import './assets/vendor/waves/waves.min.css'
 //require('./assets/js/dashboard')
 require('./assets/js/global')
 require('./assets/js/scripts')
+require('./assets/js/init')
+require('./assets/js/jquery.slimscroll')
 require('./assets/vendor/waves/waves.min')
-import config from './config'
-import auth from './services/auth'
-import GlobalDirectives from './globalDirectives'
+import './assets/css/style.css'
+
+
 axios.defaults.baseURL = config.API_URL;
 axios.defaults.headers.common['Authorization'] = auth.getToken();
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

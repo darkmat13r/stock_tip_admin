@@ -35,6 +35,7 @@ const auth = {
     },
     saveUser(user){
         localStorage.setItem(KEY_USER, JSON.stringify(user))
+        axios.defaults.headers.common['Authorization'] = this.getToken();
     },
     // Send a request to the login URL and save the returned JWT
     login(context, creds, redirect) {
@@ -46,15 +47,13 @@ const auth = {
                 let data = response.data
                 if (data.error) {
                     context.error = data.message
-                    toastr.error(data.message)
+                    this.$toast.error(data.message)
                 } else {
                     const user = data.result
                     this.saveUser(user)
                     setTimeout(()=>{
                         this.notifyAuthChanged()
-                        context.$router.push(redirect)
-                    }, 200)
-
+                    }, 500)
                 }
             })
             .catch(function (error) {

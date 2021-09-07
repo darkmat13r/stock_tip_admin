@@ -10,21 +10,21 @@ const baseService = {
             axiosRequest.then(res => {
                 let data = res.data
                 if (data.error) {
+                    toastr.error('Error', data.message)
                     reject(data.message)
                 } else {
                     resolve(data.result)
                 }
             }).catch(err => {
-                console.log(err)
-                if(err.response.status  !== undefined){
+                if(err.response && err.response.status  !== undefined){
                     if (err.response.status === 401) {
                         auth.logout()
                     }
                     if (err.response.status === 403) {
-                        toastr.error("You don't have permission to access this resource")
+                        toastr.error('Error','You don\'t have permission to access this resource')
                     }
                 }
-
+                reject(err.response)
             })
         })
     },

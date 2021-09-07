@@ -10098,3 +10098,9 @@ button,
     border-radius: 5px; }
 
 /*# sourceMappingURL=style.css.map */
+
+.avatar img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}

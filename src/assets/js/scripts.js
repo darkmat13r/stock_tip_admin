@@ -50,14 +50,13 @@ $(document).ready(function() {
 
     });
 
-    $(function() {
+    /*$(function() {
         // var win_w = window.outerWidth;
-        var win_h = window.outerHeight;
-        var win_h = window.outerHeight;
+        var win_h = window.innerHeight;
         if (win_h > 0 ? win_h : screen.height) {
             $(".content-body").css("min-height", (win_h + 60) + "px");
         };
-    });
+    });*/
 
 
 });

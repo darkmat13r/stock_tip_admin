@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="hk-pg-wrapper">
         <div id="preloader">
             <div class="sk-three-bounce">
                 <div class="sk-child sk-bounce1"></div>
@@ -53,6 +53,7 @@
 
         },
         mounted() {
+            console.log(toastr)
             this.$auth.init()
             this.$auth.addAuthChangeListener((user) => {
                 if (this.isAuthRoute() && user) {
@@ -137,10 +138,10 @@
     }
 </script>
 <style lang="scss">
-.mini-logo{
-    img{
-        width: auto;
-        height: 38px;
+    .mini-logo {
+        img {
+            width: auto;
+            height: 38px;
+        }
     }
-}
 </style>

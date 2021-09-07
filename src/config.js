@@ -1,7 +1,7 @@
 const config = {
-    HOST : 'localhost',
+    HOST : process.env.VUE_APP_HOST,
     PORT : '8000',
-    API_URL: process.env.VUE_APP_API_URL,
+    API_URL: process.env.VUE_APP_HOST +'/api/',
     SET_PAGE_TITLE: 'SET_PAGE_TITLE',
     SET_SPLASH_MODE: 'SET_SPLASH_MODE',
     SHOW_MENU: 'SHOW_MENU',

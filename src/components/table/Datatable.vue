@@ -27,7 +27,7 @@
                                     aria-controls="datatable-buttons"></label></div>
                             </div>
                         </div>
-                        <div class="">
+                        <div class="table-responsive">
                             <table class="table table-centered table-nowrap mb-0 ">
                                 <thead class="thead-light">
                                 <tr v-if="columns &&  columns.length > 0">

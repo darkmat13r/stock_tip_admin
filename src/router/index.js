@@ -10,6 +10,7 @@ import Plans from "../views/plan/Plans";
 import CreatePlan from "../views/plan/CreatePlan";
 import Orders from "../views/orders/Orders";
 import Chat from "../views/support/Chat";
+import UserDetails from "../views/user/UserDetails";
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
         path: '/users',
         name: 'users',
         component: Users
+    },
+    {
+        path: '/users/:userId',
+        name: UserDetails.name,
+        component: UserDetails
     },
     {
         path: '/sheets',
