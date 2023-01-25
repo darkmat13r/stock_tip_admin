@@ -1,0 +1,54 @@
+name: PHP Composer
+
+on:
+  pull_request:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      
+      - uses: actions/checkout@v2
+
+      - uses: bahmutov/npm-install@v1
+      - name: Install Setup
+        run: |
+          sudo apt install zip
+
+
+      - name: Zip Project
+        run: |
+          pwd
+          zip -r web.zip .
+          ls
+      - name: Deploy
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./web.zip
+          remote: /var/www/deploy/web.zip
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          privateKey: ${{ secrets.SERVER_KEY }}
+          rmRemote: true
+      - name: Unzip
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: >-
+            cd /var/www/deploy &&
+            unzip -o web.zip -d /var/www/admin/
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          privateKey: ${{ secrets.SERVER_KEY }}
+      - name: Clean
+        uses: garygrossgarten/github-action-ssh@release
+        if: always()
+        continue-on-error: true
+        with:
+          command: >-
+            cd /var/www/admin &&
+            rm web.zip
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          privateKey: ${{ secrets.SERVER_KEY }}
+
