@@ -32,7 +32,7 @@ jobs:
       - name: Zip Project
         run: |
           pwd
-          zip -r web.zip .
+          zip -r web.zip public/
           ls
       - name: Deploy
         uses: garygrossgarten/github-action-scp@release
