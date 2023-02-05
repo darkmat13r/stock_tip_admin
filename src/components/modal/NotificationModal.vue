@@ -14,7 +14,7 @@
                                    v-model="title">
                         </div>
                         <div class="has-error" v-if="titleError">
-                            <div class="text-danger" v-model="titleError"></div>
+                            <div class="text-danger" v-bind="titleError"></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -25,7 +25,7 @@
                 </textarea>
                         </div>
                         <div class="has-error" v-if="messageError">
-                            <div class="text-danger" v-model="messageError"></div>
+                            <div class="text-danger" v-bind="messageError"></div>
                         </div>
                     </div>
                     <div class="form-group">

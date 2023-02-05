@@ -14,7 +14,7 @@
                                    v-model="emailSubject">
                         </div>
                         <div class="has-error" v-if="emailSubjectError">
-                            <div class="text-danger" v-model="emailSubjectError"></div>
+                            <div class="text-danger" v-bind="emailSubjectError"></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -25,7 +25,7 @@
                 </textarea>
                         </div>
                         <div class="has-error" v-if="emailError">
-                            <div class="text-danger" v-model="emailError"></div>
+                            <div class="text-danger" v-bind="emailError"></div>
                         </div>
                     </div>
                     <div class="form-group">
