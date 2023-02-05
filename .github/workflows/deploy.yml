@@ -18,7 +18,7 @@ jobs:
         node-version: 16
       - uses: actions/setup-python@v4
         with:
-          python-version: '2.7'
+        python-version: '2.7'
       - run: npm install
       - run: npm update
       - run: npm run build
@@ -26,7 +26,7 @@ jobs:
       - name: Install Setup
         run: |
           sudo apt install zip
-  
+
 
       - name: Zip Project
         run: |
